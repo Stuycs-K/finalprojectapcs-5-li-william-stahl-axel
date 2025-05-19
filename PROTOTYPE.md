@@ -1,11 +1,19 @@
 
 # Technical Details:
 
-(CHANGE THIS!!!!!)
-
-A description of your technical design. This should include: 
-   
-How you will be using the topics covered in class in the project.
+PERIOD 5
+William Li, Axel Stahl
+Willexa
+#### Project Description
+Chess game. 8x8 grid with the standard setup in classical chess. 
+Only legal moves allowed. Recognizes when a player wins, loses, or stalemates.
+Displays possible moves. Has a timer for each side. Moves can only be made on your turn.
+#### Expanded Description
+**Critical features (Minimum Viable Product)**: Chess game that only allows legal moves and recognizes state (win/lose/stalemate).
+**Nice to have features**: 
+ - shows possible moves for piece
+ - clock for each side with options for times.
+ - show red when you are check/checkmate
      
 # Project Design
 
