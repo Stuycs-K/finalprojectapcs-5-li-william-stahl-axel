@@ -14,8 +14,9 @@ Displays possible moves. Has a timer for each side. Moves can only be made on yo
  - shows possible moves for piece
  - clock for each side with options for times.
  - show red when you are check/checkmate
-     
+
 # Project Design
+![UML_General](https://github.com/user-attachments/assets/79ec5cd5-d28b-4991-bf71-fc19c1d79392)
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
 
