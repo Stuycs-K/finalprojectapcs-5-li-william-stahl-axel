@@ -1,13 +1,25 @@
 
 # Technical Details:
 
-(CHANGE THIS!!!!!)
+PERIOD 5
+William Li, Axel Stahl
+Willexa
+#### Project Description
+Chess game. 8x8 grid with the standard setup in classical chess. 
+Only legal moves allowed. Recognizes when a player wins, loses, or stalemates.
+Displays possible moves. Has a timer for each side. Moves can only be made on your turn.
+#### Expanded Description
+**Critical features (Minimum Viable Product)**: Chess game that only allows legal moves and recognizes state (win/lose/stalemate).
+**Nice to have features**: 
+ - shows possible moves for piece
+ - clock for each side with options for times.
+ - show red when you are check/checkmate
 
-A description of your technical design. This should include: 
-   
-How you will be using the topics covered in class in the project.
-     
 # Project Design
+![UML_General](https://github.com/user-attachments/assets/79ec5cd5-d28b-4991-bf71-fc19c1d79392)
+![Screenshot_19-May_18-51-52_12927](https://github.com/user-attachments/assets/e7989f89-232b-48fa-8028-5bf85ef1fa73)
+![image](https://github.com/user-attachments/assets/9d26ec4c-0cfe-4da3-8900-8d9a844a361c)
+![image](https://github.com/user-attachments/assets/ed014005-948c-4dd8-b5d2-fff3c90741d8)
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
 
