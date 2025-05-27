@@ -26,7 +26,11 @@ UML Diagrams and descriptions of key algorithms, classes, and how things fit tog
     
 # Intended pacing:
 
-How you are breaking down the project and who is responsible for which parts.
-
-A timeline with expected completion dates of parts of the project. (CHANGE THIS!!!!!)
-
+- Position 5/27
+- Piece abstract class 5/28
+- Pieces subclasses 5/28
+- Board setup() 5/29
+- Board hints 5/30
+- Board move/removePiece() 5/31
+- Board move() 6/1
+- Board checkState()/endGame() 6/1
