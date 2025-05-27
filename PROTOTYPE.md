@@ -17,8 +17,7 @@ Displays possible moves. Has a timer for each side. Moves can only be made on yo
 
 # Project Design
 ![UML_General](https://github.com/user-attachments/assets/79ec5cd5-d28b-4991-bf71-fc19c1d79392)
-![Screenshot_19-May_18-51-52_12927](https://github.com/user-attachments/assets/e7989f89-232b-48fa-8028-5bf85ef1fa73)
-![image](https://github.com/user-attachments/assets/9d26ec4c-0cfe-4da3-8900-8d9a844a361c)
+![image](https://github.com/user-attachments/assets/08adae71-56a7-4fe9-8ada-6cfc4421efbe)
 ![image](https://github.com/user-attachments/assets/ed014005-948c-4dd8-b5d2-fff3c90741d8)
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
