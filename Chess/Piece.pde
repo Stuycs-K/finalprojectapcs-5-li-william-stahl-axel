@@ -1,12 +1,26 @@
-abstract class Piece{
-   private String name;
-   private int[] moves;
-   private String iconPath;
-   private Position loc;
-   
-   public abstract String getName();
-   public abstract int[] getMoves();
-   public abstract boolean movePossible();
-   public abstract boolean capturePossible();
-   public abstract void moveTo();
-}
+abstract class Piece {
+   private int turn; //distinguish between black and white  
+   private String name;  
+   private int[][] moves; //array of relative cords  
+   private String iconPath;  
+   private Position loc;  
+   private boolean hasMoved; //pawns and clastling
+
+   public Piece(int turn, Position loc, String iconPath, int[][] moves) {  
+     this.turn = turn;  
+     this.loc = loc;  
+     this.iconPath = iconPath;  
+     this.moves = moves;  
+     this.hasMoved = false;  
+   }  
+
+
+   public abstract int[][] getMoves(); //loops and checks if movePossible   
+   public abstract int[][] getCaptures(); //usually calls getMoves, Pawn is diff  
+   public abstract boolean movePossible(Position move);  
+   public abstract boolean capturePossible(Position move);  
+   public void moveTo(Position dest) {  
+      this.loc = dest;  
+      this.hasMoved = true;  
+   }  
+}  
