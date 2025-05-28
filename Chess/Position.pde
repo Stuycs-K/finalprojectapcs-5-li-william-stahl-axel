@@ -30,7 +30,7 @@ class Position{
    
    //find Position from cords
    public static Position cordToPos(int x, int y) {
-     return new Position(x/width,y/height);
+     return new Position(x/width*7+1,y/height*7+1);
    }
    }
 }
