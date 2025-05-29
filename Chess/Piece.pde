@@ -3,7 +3,7 @@ abstract class Piece {
    private int[][] moves; //array of relative cords  
    private String iconPath;  
    private Position loc;  
-   private boolean hasMoved; //pawns and clastling
+   private boolean hasMoved; //pawns and castling
 
    public Piece(int turn, Position loc, String iconPath, int[][] moves) {  
      this.turn = turn;  
