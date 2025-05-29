@@ -1,6 +1,5 @@
 abstract class Piece {
    private int turn; //distinguish between black and white  
-   private String name;  
    private int[][] moves; //array of relative cords  
    private String iconPath;  
    private Position loc;  
