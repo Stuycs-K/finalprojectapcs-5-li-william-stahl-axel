@@ -8,5 +8,5 @@ This document must be updated daily every time you finish a work session.
 Prototype graph was changed to be aggregate, took around 5 minutes.  
 Created Position class to make progress on the intended pacing, took around 10 minutes.
 
-### 2025-0-0 - Brief description
-Expanded description including how much time was spent on task.
+### 2025-05-28 - Basics of abstract piece class
+Worked on the basic structure of the abstract piece class, not fully completed.
