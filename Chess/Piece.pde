@@ -14,10 +14,27 @@ abstract class Piece {
    }  
 
 
-   public abstract int[][] getMoves(); //loops and checks if movePossible   
-   public abstract int[][] getCaptures(); //usually calls getMoves, Pawn is diff  
-   public abstract boolean movePossible(Position move);  
-   public abstract boolean capturePossible(Position move);  
+   public int[][] Moves() {return moves;}
+   public  ArrayList<Position> getMoves() {
+    Position tmp;
+    ArrayList<Position> possibleMoves = new ArrayList<Position>();
+    int x = getLoc().getX();
+    int y = getLoc().getY();
+    int[][] relative = Moves();
+    for (int[] pair : relative) {
+      tmp = new Position(x+pair[0],y+pair[1]);
+      if (movePossible(tmp)) {
+        possibleMoves.add(tmp);
+      }
+    }
+    return possibleMoves;
+  }
+  public  ArrayList<Position> getCaptures() {
+   return getMoves();
+ } //usually calls getMoves, Pawn is diff  
+ public  boolean movePossible(Position move) {return false;}  
+ public  boolean capturePossible(Position move) {return false;} 
+   public Position getLoc() {return loc;}
    public void moveTo(Position dest) {  
       this.loc = dest;  
       this.hasMoved = true;  
