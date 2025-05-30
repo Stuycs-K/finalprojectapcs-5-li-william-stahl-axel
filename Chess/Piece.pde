@@ -32,8 +32,8 @@ abstract class Piece {
   public  ArrayList<Position> getCaptures() {
    return getMoves();
  } //usually calls getMoves, Pawn is diff  
- public  boolean movePossible(Position move) {return false;}  
- public  boolean capturePossible(Position move) {return false;} 
+ public  boolean movePossible(Position move) {return move.isPossible();}  
+ public  boolean capturePossible(Position move) {return move.isPossible();} 
    public Position getLoc() {return loc;}
    public void moveTo(Position dest) {  
       this.loc = dest;  
