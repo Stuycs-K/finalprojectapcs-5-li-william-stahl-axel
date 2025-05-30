@@ -3,6 +3,8 @@
 This document must be updated daily every time you finish a work session.
 
 ## Axel Stahl
+### 2025-5-29 - Piece subclasses
+Piece subclasses boilerplate code made.
 
 ### 2025-5-28 - Piece Class
 Complete the abstract parent class Piece. Added comments to clarify.
