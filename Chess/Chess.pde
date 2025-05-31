@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-PImage boardImage;
+PImage boardImage, tmpPiece;
 ArrayList<Piece> board = new ArrayList<Piece>(33);
 int turn = 0;//0-white   1-black
 ArrayList<Position> hints = new ArrayList<Position>();
@@ -22,8 +22,9 @@ void setup() {
       board.add(new Pawn(_turn, new Position(i, 7-5*_turn)));
   }
 
-
-  
+  for (Piece piece: board) {
+    image(piece.getIcon(),piece.getX(),piece.getY());
+  }
 }
 void draw() {
   
