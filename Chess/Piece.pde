@@ -17,12 +17,12 @@ abstract class Piece {
    public int[][] Moves() {return moves;}
    public int getX() {return loc.getX();}
    public int getY() {return loc.getY();}
-   public  ArrayList<Position> getMoves() {
+   public ArrayList<Position> getMoves() {return getMovesH(Moves());}
+   public  ArrayList<Position> getMovesH(int[][] relative) {
     Position tmp;
     ArrayList<Position> possibleMoves = new ArrayList<Position>();
     int x = getLoc().getX();
     int y = getLoc().getY();
-    int[][] relative = Moves();
     for (int[] pair : relative) {
       tmp = new Position(x+pair[0],y+pair[1]);
       if (movePossible(tmp)) {
@@ -52,4 +52,5 @@ abstract class Piece {
     return icon;
   }
   public boolean getHasMoved() {return hasMoved;}
+  public int getTurn() {return turn;}
 }  
