@@ -43,7 +43,8 @@ abstract class Piece {
     if (turn == 0) {
       return iconPath;
     } else {
-      return "black"+iconPath;
+      return "black-"+iconPath;
     }
   }
+  public boolean getHasMoved() {return hasMoved;}
 }  
