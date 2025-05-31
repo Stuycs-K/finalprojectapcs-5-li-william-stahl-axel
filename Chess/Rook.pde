@@ -1,5 +1,5 @@
 class Rook extends Piece{
    public Rook(int turn, Position loc) {
-    super(turn, loc, "placehold.jpg", new int[2][10]);
+    super(turn, loc, "rook.jpg", new int[][]{{0,1},{0,2},{0,3},{0,4},{0,5},{0,6},{0,7},{0,-1},{0,-2},{0,-3},{0,-4},{0,-5},{0,-6},{0,-7},{1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{7,0},{-1,0},{-2,0},{-3,0},{-4,0},{-5,0},{-6,0},{-7,0}});
   }
 }
