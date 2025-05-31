@@ -11,4 +11,11 @@ class Pawn extends Piece{
     }
     return getMovesH(relative);
   }
+  public ArrayList<Position> getCaptures() {
+    int[][] relative = {{-1,-1},{1,-1}};
+    if (getTurn() == 0) {
+      relative = new int[][]{{1,1},{-1,1}};
+    }
+    return getMovesH(relative);
+  }
 }
