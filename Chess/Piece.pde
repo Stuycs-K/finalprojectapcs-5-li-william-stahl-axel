@@ -42,11 +42,14 @@ abstract class Piece {
       this.hasMoved = true;  
    } 
   public PImage getIcon() {
+    PImage icon;
     if (turn == 0) {
-      return loadImage(iconPath);
+      icon = loadImage(iconPath);
     } else {
-      return loadImage("black-"+iconPath);
+      icon = loadImage("black-"+iconPath);
     }
+    icon.resize(width/8,height/8);
+    return icon;
   }
   public boolean getHasMoved() {return hasMoved;}
 }  
