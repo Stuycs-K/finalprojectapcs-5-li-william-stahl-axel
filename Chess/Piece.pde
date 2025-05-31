@@ -15,6 +15,8 @@ abstract class Piece {
 
 
    public int[][] Moves() {return moves;}
+   public int getX() {return loc.getX();}
+   public int getY() {return loc.getY();}
    public  ArrayList<Position> getMoves() {
     Position tmp;
     ArrayList<Position> possibleMoves = new ArrayList<Position>();
@@ -39,12 +41,15 @@ abstract class Piece {
       this.loc = dest;  
       this.hasMoved = true;  
    } 
-  public String getIcon() {
+  public PImage getIcon() {
+    PImage icon;
     if (turn == 0) {
-      return iconPath;
+      icon = loadImage(iconPath);
     } else {
-      return "black-"+iconPath;
+      icon = loadImage("black-"+iconPath);
     }
+    icon.resize(width/8,height/8);
+    return icon;
   }
   public boolean getHasMoved() {return hasMoved;}
 }  
