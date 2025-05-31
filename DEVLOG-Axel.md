@@ -3,6 +3,9 @@
 This document must be updated daily every time you finish a work session.
 
 ## Axel Stahl
+### 2025-5-30 - Piece Class
+Edited piece class to save code on piece subclasses
+
 ### 2025-5-29 - Piece subclasses
 Piece subclasses boilerplate code made.
 

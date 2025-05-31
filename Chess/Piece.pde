@@ -38,5 +38,12 @@ abstract class Piece {
    public void moveTo(Position dest) {  
       this.loc = dest;  
       this.hasMoved = true;  
-   }  
+   } 
+  public String getIcon() {
+    if (turn == 0) {
+      return iconPath;
+    } else {
+      return "black"+iconPath;
+    }
+  }
 }  
