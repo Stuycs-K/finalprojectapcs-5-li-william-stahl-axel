@@ -52,4 +52,5 @@ abstract class Piece {
     return icon;
   }
   public boolean getHasMoved() {return hasMoved;}
+  public int getTurn() {return turn;}
 }  
