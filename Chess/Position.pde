@@ -3,8 +3,9 @@ class Position{
    private int y;
    
    public Position(int xCord, int yCord){
-       x = xCord;
-       y = yCord;
+       int[] cords = posToCord(xCord, yCord);
+       x = cords[0];
+       y = cords[1];
    }
    
    public int getX(){
