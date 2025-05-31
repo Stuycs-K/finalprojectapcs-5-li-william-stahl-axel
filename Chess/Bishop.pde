@@ -1,6 +1,5 @@
 class Bishop extends Piece{
   public Bishop(int turn, Position loc) {
-    super(turn, loc, "placehold.jpg", new int[2][10]);
+    super(turn, loc, "bishop.jpg", new int[][]{{1,1},{2,2},{3,3},{4,4},{5,5},{6,6},{7,7},{-1,-1},{-2,-2},{-3,-3},{-4,-4},{-5,-5},{-6,-6},{-7,-7},{1,-1},{2,-2},{3,-3},{4,-4},{5,-5},{6,-6},{7,-7},{-1,1},{-2,2},{-3,3},{-4,4},{-5,5},{-6,6},{-7,7}});
   }
- 
 }
