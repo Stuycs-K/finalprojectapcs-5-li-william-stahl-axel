@@ -32,5 +32,7 @@ class Position{
    public Position cordToPos(int x, int y) {
      return new Position(min(x*8 / width + 1, 8), min(y*8 / height + 1, 8));
    }
-   
+   public int[] posToCord(int col, int row) {
+     return new int[]{(col - 1) * width / 8, (8 - row) * height / 8};
+   }   
 }
