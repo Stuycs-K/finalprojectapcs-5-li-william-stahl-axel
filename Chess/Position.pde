@@ -36,4 +36,7 @@ class Position{
    public int[] posToCord(int col, int row) {
      return new int[]{(col - 1) * width / 8, (8 - row) * height / 8};
    }   
+   public boolean equals(Position pos) {
+     return getX() == pos.getX() && getY() == pos.getY();
+   }
 }
