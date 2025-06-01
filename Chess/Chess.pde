@@ -27,5 +27,9 @@ void setup() {
   }
 }
 void draw() {
+  image(boardImage, 0, 0);
   
+  for (Piece piece: board){
+     image(piece.getIcon(), piece.getX(), piece.getY()); 
+  }
 }
