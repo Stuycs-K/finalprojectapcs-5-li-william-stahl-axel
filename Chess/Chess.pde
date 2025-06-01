@@ -75,3 +75,13 @@ void showHints(){
 void clearHints(){
    hints.clear(); 
 }
+
+void movePiece(Position position, Piece piece) {
+  Piece pieceAtPosition = getPieceAt(position);
+  if (pieceAtPosition != null) {
+    board.remove(pieceAtPosition);
+  } 
+  piece.moveTo(position);
+  clearHints();
+  draw();
+}
