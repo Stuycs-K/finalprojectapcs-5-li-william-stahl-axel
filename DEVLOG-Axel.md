@@ -3,6 +3,10 @@
 This document must be updated daily every time you finish a work session.
 
 ## Axel Stahl
+
+### 2025-5-31 - Setup
+Wrote setup function so the board is working. Also improved piece classes and positions, adding helpful functions.
+
 ### 2025-5-30 - Piece Class
 Edited piece class to save code on piece subclasses
 
