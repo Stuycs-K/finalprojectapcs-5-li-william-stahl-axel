@@ -91,30 +91,31 @@ void movePiece(Position position, Piece piece) {
 }
 
 void mouseClicked() {
-  System.out.println("\n\nFocus before click: " + focus);
 
-  Position tmp = new Position(1, 1); // Just to access cordToPos
+  Position tmp = new Position(1, 1);
   Position mousePos = tmp.cordToPos(mouseX, mouseY);
-  System.out.println("Mouse clicked at: " + mousePos);
 
   Piece clickedPiece = getPieceAt(mousePos);
-  System.out.println("Piece at click: " + clickedPiece);
 
   if (hints.isEmpty()) {
     if (clickedPiece != null) {
       focus = clickedPiece;
       getHints(focus);
-      System.out.println("Setting focus and showing hints for: " + focus);
     }
   } else if (!positionInHints(mousePos)) {
-    System.out.println("Clicked outside hints, clearing.");
     focus = null;
     clearHints();
   } else if (focus != null && clickedPiece == null) {
-    System.out.println("Moving " + focus + " to " + mousePos);
     movePiece(mousePos, focus);
     focus = null;
+    clearHints();
+  } else {
+    board.remove(clickedPiece);
+    movePiece(mousePos, focus);
+    focus = null;
+    clearHints();
   }
+    
 }
 boolean positionInHints(Position pos) {
   for (Position p : hints) {
