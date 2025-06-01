@@ -21,8 +21,8 @@ abstract class Piece {
    public  ArrayList<Position> getMovesH(int[][] relative) {
     Position tmp;
     ArrayList<Position> possibleMoves = new ArrayList<Position>();
-    int x = getLoc().getX();
-    int y = getLoc().getY();
+    int x = getLoc().getCol();
+    int y = getLoc().getRow();
     for (int[] pair : relative) {
       tmp = new Position(x+pair[0],y+pair[1]);
       if (movePossible(tmp)) {
@@ -53,4 +53,8 @@ abstract class Piece {
   }
   public boolean getHasMoved() {return hasMoved;}
   public int getTurn() {return turn;}
+  public String toString() {
+    String colorz = (turn == 0) ? "White" : "Black";
+    return getClass().getSimpleName() + " (" + colorz + ") at " + loc + (hasMoved ? " [Moved]" : " [Not moved]");
+  }
 }  
