@@ -32,11 +32,14 @@ void draw() {
   for (Piece piece: board){
      image(piece.getIcon(), piece.getX(), piece.getY()); 
   }
+  showHints();
 }
 
 Piece getPieceAt(Position position){
    for (Piece piece: board){
+     
       if (piece.getLoc().equals(position)){
+        
          return piece; 
       }
    }
@@ -84,4 +87,16 @@ void movePiece(Position position, Piece piece) {
   piece.moveTo(position);
   clearHints();
   draw();
+}
+
+void mouseClicked() {
+  Position tmp = new Position(1,1);
+
+  Position mousePos = tmp.cordToPos(mouseX,mouseY);
+  Piece piece = getPieceAt(mousePos);
+  System.out.println(piece);
+  if (hints.isEmpty()) {
+    getHints(piece);
+    showHints();
+  }
 }
