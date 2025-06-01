@@ -98,5 +98,7 @@ void mouseClicked() {
   if (hints.isEmpty()) {
     getHints(piece);
     showHints();
+  } else if (!hints.contains(mousePos)) {
+    hints.clear();
   }
 }
