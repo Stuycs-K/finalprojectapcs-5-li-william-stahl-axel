@@ -4,6 +4,7 @@ PImage boardImage, tmpPiece;
 ArrayList<Piece> board = new ArrayList<Piece>(33);
 int turn = 0;//0-white   1-black
 ArrayList<Position> hints = new ArrayList<Position>();
+Piece focus;
 void setup() {
   size(773,800);
   boardImage = loadImage("board.png");
@@ -90,15 +91,36 @@ void movePiece(Position position, Piece piece) {
 }
 
 void mouseClicked() {
-  Position tmp = new Position(1,1);
+  System.out.println("\n\nFocus before click: " + focus);
 
-  Position mousePos = tmp.cordToPos(mouseX,mouseY);
-  Piece piece = getPieceAt(mousePos);
-  System.out.println(piece);
+  Position tmp = new Position(1, 1); // Just to access cordToPos
+  Position mousePos = tmp.cordToPos(mouseX, mouseY);
+  System.out.println("Mouse clicked at: " + mousePos);
+
+  Piece clickedPiece = getPieceAt(mousePos);
+  System.out.println("Piece at click: " + clickedPiece);
+
   if (hints.isEmpty()) {
-    getHints(piece);
-    showHints();
-  } else if (!hints.contains(mousePos)) {
-    hints.clear();
+    if (clickedPiece != null) {
+      focus = clickedPiece;
+      getHints(focus);
+      System.out.println("Setting focus and showing hints for: " + focus);
+    }
+  } else if (!positionInHints(mousePos)) {
+    System.out.println("Clicked outside hints, clearing.");
+    focus = null;
+    clearHints();
+  } else if (focus != null && clickedPiece == null) {
+    System.out.println("Moving " + focus + " to " + mousePos);
+    movePiece(mousePos, focus);
+    focus = null;
   }
+}
+boolean positionInHints(Position pos) {
+  for (Position p : hints) {
+    if (p.getX() == pos.getX() && p.getY() == pos.getY()) {
+      return true;
+    }
+  }
+  return false;
 }
