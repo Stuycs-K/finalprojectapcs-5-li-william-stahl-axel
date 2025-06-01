@@ -62,3 +62,16 @@ void getHints(Piece piece){
        }
     }
 }
+
+void showHints(){
+   fill (200, 200, 200, 180);
+  for (Position position : hints){
+      float centerXCor = position.getX() + width/16;
+      float centerYCor = position.getY() + height/16;
+      circle(centerXCor, centerYCor, 100);
+  } 
+}
+
+void clearHints(){
+   hints.clear(); 
+}
