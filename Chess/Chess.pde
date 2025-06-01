@@ -4,6 +4,7 @@ PImage boardImage, tmpPiece;
 ArrayList<Piece> board = new ArrayList<Piece>(33);
 int turn = 0;//0-white   1-black
 ArrayList<Position> hints = new ArrayList<Position>();
+Piece focus;
 void setup() {
   size(773,800);
   boardImage = loadImage("board.png");
@@ -32,11 +33,14 @@ void draw() {
   for (Piece piece: board){
      image(piece.getIcon(), piece.getX(), piece.getY()); 
   }
+  showHints();
 }
 
 Piece getPieceAt(Position position){
    for (Piece piece: board){
+     
       if (piece.getLoc().equals(position)){
+        
          return piece; 
       }
    }
@@ -74,4 +78,50 @@ void showHints(){
 
 void clearHints(){
    hints.clear(); 
+}
+
+void movePiece(Position position, Piece piece) {
+  Piece pieceAtPosition = getPieceAt(position);
+  if (pieceAtPosition != null) {
+    board.remove(pieceAtPosition);
+  } 
+  piece.moveTo(position);
+  clearHints();
+  draw();
+}
+
+void mouseClicked() {
+
+  Position tmp = new Position(1, 1);
+  Position mousePos = tmp.cordToPos(mouseX, mouseY);
+
+  Piece clickedPiece = getPieceAt(mousePos);
+
+  if (hints.isEmpty()) {
+    if (clickedPiece != null) {
+      focus = clickedPiece;
+      getHints(focus);
+    }
+  } else if (!positionInHints(mousePos)) {
+    focus = null;
+    clearHints();
+  } else if (focus != null && clickedPiece == null) {
+    movePiece(mousePos, focus);
+    focus = null;
+    clearHints();
+  } else {
+    board.remove(clickedPiece);
+    movePiece(mousePos, focus);
+    focus = null;
+    clearHints();
+  }
+    
+}
+boolean positionInHints(Position pos) {
+  for (Position p : hints) {
+    if (p.getX() == pos.getX() && p.getY() == pos.getY()) {
+      return true;
+    }
+  }
+  return false;
 }

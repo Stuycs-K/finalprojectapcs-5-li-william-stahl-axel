@@ -1,42 +1,53 @@
-class Position{
-   private int x;
-   private int y;
-   
-   public Position(int xCord, int yCord){
-       int[] cords = posToCord(xCord, yCord);
-       x = cords[0];
-       y = cords[1];
-   }
-   
-   public int getX(){
-     return x;
-   }
-   
-   public int getY(){
-     return y;
-   }
-   
-   public void setX(int xVal){
-     x = xVal;
-   }
-   
-   public void setY(int yVal){
-     y = yVal;
-   }
-   
-   // is on the board
-   public boolean isPossible(){
-     return (x > 0 && x < 9 && y > 0 && y < 9);
-   }
-   
-   //find Position from cords
-   public Position cordToPos(int x, int y) {
-     return new Position(min(x*8 / width + 1, 8), min(y*8 / height + 1, 8));
-   }
-   public int[] posToCord(int col, int row) {
-     return new int[]{(col - 1) * width / 8, (8 - row) * height / 8};
-   }   
-   public boolean equals(Position pos) {
-     return getX() == pos.getX() && getY() == pos.getY();
-   }
+class Position {
+  private int col; // 1 to 8
+  private int row; // 1 to 8
+
+  public Position(int col, int row) {
+    this.col = constrain(col, 1, 8);
+    this.row = constrain(row, 1, 8);
+  }
+
+  public int getX() {
+    return (col - 1) * width / 8;
+  }
+
+  public int getY() {
+    return (8 - row) * height / 8;
+  }
+
+  public int getCol() {
+    return col;
+  }
+
+  public int getRow() {
+    return row;
+  }
+
+  public void setCol(int c) {
+    col = constrain(c, 1, 8);
+  }
+
+  public void setRow(int r) {
+    row = constrain(r, 1, 8);
+  }
+
+  public boolean isPossible() {
+    return col >= 1 && col <= 8 && row >= 1 && row <= 8;
+  }
+
+  public boolean equals(Position pos) {
+    return this.col == pos.col && this.row == pos.row;
+  }
+
+  public String toString() {
+    return "Position(col=" + col + ", row=" + row + ")";
+  }
+
+  
+  public  Position cordToPos(int x, int y) {
+    int col = constrain((int)(x * 8.0 / width) + 1, 1, 8);
+    int row = constrain((int)(y * 8.0 / height) + 1, 1, 8);
+    row = 9 - row;
+    return new Position(col, row);
+  }
 }
