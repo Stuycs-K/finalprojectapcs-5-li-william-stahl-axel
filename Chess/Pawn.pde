@@ -6,8 +6,15 @@ class Pawn extends Piece{
   }
   public ArrayList<Position> getMoves() {
     int[][] relative = {{0,-1}};
-    if (getTurn() == 0) {
-      relative = new int[][]{{0,1}};
+    if (getHasMoved()) {
+      if (getTurn() == 0) {
+        relative = new int[][]{{0,1}};
+      }
+    } else {
+      relative = new int[][]{{0,-2}};
+      if (getTurn() == 0) {
+        relative = new int[][]{{0,2}};
+      }
     }
     return getMovesH(relative);
   }
