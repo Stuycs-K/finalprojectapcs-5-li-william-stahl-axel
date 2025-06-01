@@ -34,3 +34,12 @@ UML Diagrams and descriptions of key algorithms, classes, and how things fit tog
 - Board move/removePiece() 5/31
 - Board move() 6/1
 - Board checkState()/endGame() 6/1
+
+
+TODO:
+ - draw(): draw board. draw pieces.
+ - getHints(Piece): Piece.getMoves(), then display those moves. get capture moves with getCaptures(). If the position has a piece in it, check if it is in getCaptures. add all these moves that pass into getHints()
+ - showHints(): loop through hints, display gray semi-transparent circle on square. 
+ - clearHints(): remove hints
+ - movePiece(Position, Piece): if Position has piece, remove piece from board. Piece.moveTo(Position). clearHints(); draw();
+ - mouseClick(): get Position from mouseX,mouseY. if Position in hints, movePiece(Position). if Position not in hint arr and hints arr full, clearHints(). If hints empty, getHints(); showHints;.
