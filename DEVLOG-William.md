@@ -13,3 +13,6 @@ Worked on the basic structure of the abstract piece class, not fully completed.
 
 ### 2025-05-30 - Updating main Chess file
 Worked on Chess file and added the board image. Also cleared up some subclass errors.
+
+### 2025-06-01 - MVP Work
+Worked on draw(), getHints(Piece), showHints(), and clearHints(). 2 more parts left for the MVP.
