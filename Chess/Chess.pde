@@ -33,3 +33,32 @@ void draw() {
      image(piece.getIcon(), piece.getX(), piece.getY()); 
   }
 }
+
+Piece getPieceAt(Position position){
+   for (Piece piece: board){
+      if (piece.getLoc().equals(position)){
+         return piece; 
+      }
+   }
+   return null;
+}
+
+void getHints(Piece piece){
+    ArrayList<Position> moves = piece.getMoves();
+    ArrayList<Position> captures = piece.getCaptures();
+    
+    // no piece there
+    for (Position position : moves){
+       if (getPieceAt(position) == null){
+           hints.add(position);
+       }
+    }
+    
+    // piece there to capture
+    for (Position position : captures){
+       Piece enemy = getPieceAt(position);
+       if (enemy != null && enemy.getTurn() != piece.getTurn()){ // checks if there is a different color piece
+          hints.add(position); 
+       }
+    }
+}
