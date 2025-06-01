@@ -4,6 +4,9 @@ This document must be updated daily every time you finish a work session.
 
 ## Axel Stahl
 
+### 2025-6-1 - MVP
+Wrote todo for MVP. wrote mouseClicked and movePiece(). changed a lot of Position class and other random functionality.
+
 ### 2025-5-31 - Setup
 Wrote setup function so the board is working. Also improved piece classes and positions, adding helpful functions.
 
