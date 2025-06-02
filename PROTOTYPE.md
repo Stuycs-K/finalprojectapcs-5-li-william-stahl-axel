@@ -43,3 +43,8 @@ TODO:
  - clearHints(): remove hints
  - movePiece(Position, Piece): if Position has piece, remove piece from board. Piece.moveTo(Position). clearHints(); draw();
  - mouseClick(): get Position from mouseX,mouseY. if Position in hints, movePiece(Position). if Position not in hint arr and hints arr full, clearHints(). If hints empty, getHints(); showHints;.
+
+
+Fixes:
+- check, checkmate
+- going through pieces: have a function that has checks for vertical, horizontal, diagonal 
