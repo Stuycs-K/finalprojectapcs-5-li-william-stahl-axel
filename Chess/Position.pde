@@ -31,7 +31,7 @@ class Position {
     row = constrain(r, 1, 8);
   }
 
-  public boolean isPossible() {
+  public boolean isPossible(int col,int row) {
     return col >= 1 && col <= 8 && row >= 1 && row <= 8;
   }
 
