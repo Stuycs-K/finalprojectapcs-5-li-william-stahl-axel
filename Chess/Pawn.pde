@@ -11,9 +11,9 @@ class Pawn extends Piece{
         relative = new int[][]{{0,1}};
       }
     } else {
-      relative = new int[][]{{0,-2}};
+      relative = new int[][]{{0,-1},{0,-2}};
       if (getTurn() == 0) {
-        relative = new int[][]{{0,2}};
+        relative = new int[][]{{0,1},{0,2}};
       }
     }
     return getMovesH(relative);
