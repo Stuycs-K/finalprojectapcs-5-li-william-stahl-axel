@@ -25,7 +25,7 @@ abstract class Piece {
     int y = getLoc().getRow();
     for (int[] pair : relative) {
       tmp = new Position(x+pair[0],y+pair[1]);
-      if (movePossible(tmp)) {
+      if (movePossible(x+pair[0],y+pair[1])) {
         possibleMoves.add(tmp);
       }
     }
@@ -34,8 +34,8 @@ abstract class Piece {
   public  ArrayList<Position> getCaptures() {
    return getMoves();
  } //usually calls getMoves, Pawn is diff  
- public  boolean movePossible(Position move) {return move.isPossible();}  
- public  boolean capturePossible(Position move) {return move.isPossible();} 
+ public  boolean movePossible(int x,int y){return loc.isPossible(x,y);}  
+ public  boolean capturePossible(int x,int y) {return loc.isPossible(x,y);} 
    public Position getLoc() {return loc;}
    public void moveTo(Position dest) {  
       this.loc = dest;  
