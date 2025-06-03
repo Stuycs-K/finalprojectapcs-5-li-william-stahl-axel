@@ -68,11 +68,15 @@ void getHints(Piece piece){
     rangingCheck(piece, hints);
 }
   public void rangingCheck(Piece piece, ArrayList<Position> hints) {
+    System.out.println(hints);
     boolean remove = false;
-    for (int i = 1; i<8; i++) {
-      Position pos = new Position(piece.loc.getCol(),piece.loc.getRow()+i);
+    int[] offset = {1,-1};
+    for (int off: offset) {
+      remove = false;
+    for (int i = 1; i<=8; i++) {
+      Position pos = new Position(piece.loc.getCol(),piece.loc.getRow()+i*off);
       
-      if (remove) {
+      if (remove && pos.isPossible(piece.loc.getCol(),piece.loc.getRow()+i*off)) {
         for (int j=0;j<hints.size();j++) {
           if(hints.get(j).equals(pos)) {
             hints.remove(j);
@@ -82,6 +86,7 @@ void getHints(Piece piece){
         
       } else{
       remove = getPieceAt(pos)!=null;}
+    }
     }
   }
 void showHints(){
