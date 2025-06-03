@@ -57,4 +57,5 @@ abstract class Piece {
     String colorz = (turn == 0) ? "White" : "Black";
     return getClass().getSimpleName() + " (" + colorz + ") at " + loc + (hasMoved ? " [Moved]" : " [Not moved]");
   }
+
 }  

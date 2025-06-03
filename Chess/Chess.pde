@@ -65,8 +65,25 @@ void getHints(Piece piece){
           hints.add(position); 
        }
     }
+    rangingCheck(piece, hints);
 }
-
+  public void rangingCheck(Piece piece, ArrayList<Position> hints) {
+    boolean remove = false;
+    for (int i = 1; i<8; i++) {
+      Position pos = new Position(piece.loc.getCol(),piece.loc.getRow()+i);
+      
+      if (remove) {
+        for (int j=0;j<hints.size();j++) {
+          if(hints.get(j).equals(pos)) {
+            hints.remove(j);
+            j--;
+          }
+        }
+        
+      } else{
+      remove = getPieceAt(pos)!=null;}
+    }
+  }
 void showHints(){
    fill (200, 200, 200, 180);
    noStroke();
