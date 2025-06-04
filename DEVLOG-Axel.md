@@ -3,6 +3,11 @@
 This document must be updated daily every time you finish a work session.
 
 ## Axel Stahl
+### 2025-6-3 - rangingCheck
+RangingCheck upwards and downwards and check for last row bugs.
+
+### 2025-6-2 - rangingCheck
+Wrote movement fixes for movement bugs.
 
 ### 2025-6-1 - MVP
 Wrote todo for MVP. wrote mouseClicked and movePiece(). changed a lot of Position class and other random functionality.

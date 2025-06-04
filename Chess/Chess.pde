@@ -67,28 +67,139 @@ void getHints(Piece piece){
     }
     rangingCheck(piece, hints);
 }
-  public void rangingCheck(Piece piece, ArrayList<Position> hints) {
-    System.out.println(hints);
-    boolean remove = false;
-    int[] offset = {1,-1};
-    for (int off: offset) {
-      remove = false;
-    for (int i = 1; i<=8; i++) {
-      Position pos = new Position(piece.loc.getCol(),piece.loc.getRow()+i*off);
-      
-      if (remove && pos.isPossible(piece.loc.getCol(),piece.loc.getRow()+i*off)) {
-        for (int j=0;j<hints.size();j++) {
-          if(hints.get(j).equals(pos)) {
-            hints.remove(j);
-            j--;
-          }
-        }
-        
-      } else{
-      remove = getPieceAt(pos)!=null;}
-    }
+
+public void rangingCheck(Piece piece, ArrayList<Position> hints) {
+    boolean removeUp = false; // up
+    for (int i = 1; i < 8; i++) {
+        Position pos = new Position(piece.loc.getCol(), piece.loc.getRow() + i);
+
+        if (removeUp && pos.isPossible(piece.loc.getCol(), piece.loc.getRow() + i)) {
+            for (int j = 0; j < hints.size(); j++) {
+                if (hints.get(j).equals(pos)) {
+                    hints.remove(j);
+                    j--;
+                }
+            }
+        } else {
+            removeUp = getPieceAt(pos) != null;
     }
   }
+
+
+    boolean removeDown = false; // down
+    for (int i = 1; i < 8; i++) {
+        Position pos = new Position(piece.loc.getCol(), piece.loc.getRow() - i);
+
+        if (removeDown && pos.isPossible(piece.loc.getCol(), piece.loc.getRow() - i)) {
+            for (int j = 0; j < hints.size(); j++) {
+                if (hints.get(j).equals(pos)) {
+                    hints.remove(j);
+                    j--;
+                }
+            }
+        } else {
+            removeDown = getPieceAt(pos) != null;
+        }
+    }
+
+    boolean removeUpRight = false;
+    for (int i = 1; i < 8; i++) {
+        Position pos = new Position(piece.loc.getCol() + i, piece.loc.getRow() + i);
+
+        if (removeUpRight && pos.isPossible(piece.loc.getCol() + i, piece.loc.getRow() + i)) {
+            for (int j = 0; j < hints.size(); j++) {
+                if (hints.get(j).equals(pos)) {
+                    hints.remove(j);
+                    j--;
+                }
+            }
+        } else {
+            removeUpRight = getPieceAt(pos) != null;
+        }
+    }
+
+    boolean removeUpLeft = false;
+    for (int i = 1; i < 8; i++) {
+        Position pos = new Position(piece.loc.getCol() - i, piece.loc.getRow() + i);
+
+        if (removeUpLeft && pos.isPossible(piece.loc.getCol() - i, piece.loc.getRow() + i)) {
+            for (int j = 0; j < hints.size(); j++) {
+                if (hints.get(j).equals(pos)) {
+                    hints.remove(j);
+                    j--;
+                }
+            }
+        } else {
+            removeUpLeft = getPieceAt(pos) != null;
+        }
+    }
+
+    boolean removeDownLeft = false;
+    for (int i = 1; i < 8; i++) {
+        Position pos = new Position(piece.loc.getCol() - i, piece.loc.getRow() - i);
+
+        if (removeDownLeft && pos.isPossible(piece.loc.getCol() - i, piece.loc.getRow() - i)) {
+            for (int j = 0; j < hints.size(); j++) {
+                if (hints.get(j).equals(pos)) {
+                    hints.remove(j);
+                    j--;
+                }
+            }
+        } else {
+            removeDownLeft = getPieceAt(pos) != null;
+        }
+    }
+
+    boolean removeDownRight = false;
+    for (int i = 1; i < 8; i++) {
+        Position pos = new Position(piece.loc.getCol() + i, piece.loc.getRow() - i);
+
+        if (removeDownRight && pos.isPossible(piece.loc.getCol() + i, piece.loc.getRow() - i)) {
+            for (int j = 0; j < hints.size(); j++) {
+                if (hints.get(j).equals(pos)) {
+                    hints.remove(j);
+                    j--;
+                }
+            }
+        } else {
+            removeDownRight = getPieceAt(pos) != null;
+        }
+    }
+
+    boolean removeLeft = false;
+    for (int i = 1; i < 8; i++) {
+        Position pos = new Position(piece.loc.getCol() - i, piece.loc.getRow());
+
+        if (removeLeft && pos.isPossible(piece.loc.getCol() - i, piece.loc.getRow())) {
+            for (int j = 0; j < hints.size(); j++) {
+                if (hints.get(j).equals(pos)) {
+                    hints.remove(j);
+                    j--;
+                }
+            }
+        } else {
+            removeLeft = getPieceAt(pos) != null;
+        }
+    }
+
+    boolean removeRight = false;
+    for (int i = 1; i < 8; i++) {
+        Position pos = new Position(piece.loc.getCol() + i, piece.loc.getRow());
+
+        if (removeRight && pos.isPossible(piece.loc.getCol() + i, piece.loc.getRow())) {
+            for (int j = 0; j < hints.size(); j++) {
+                if (hints.get(j).equals(pos)) {
+                    hints.remove(j);
+                    j--;
+                }
+            }
+        } else {
+            removeRight = getPieceAt(pos) != null;
+        }
+    }
+}
+
+>>>>>>> 495203bde033042f02f1b55a669c181d49567d34
 void showHints(){
    fill (200, 200, 200, 180);
    noStroke();
