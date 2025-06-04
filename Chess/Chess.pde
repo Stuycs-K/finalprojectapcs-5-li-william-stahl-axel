@@ -119,26 +119,27 @@ void mouseClicked() {
   Position mousePos = tmp.cordToPos(mouseX, mouseY);
 
   Piece clickedPiece = getPieceAt(mousePos);
-
+ 
   if (hints.isEmpty()) {
-    if (clickedPiece != null) {
+    if (clickedPiece != null && clickedPiece.turn==turn) {
       focus = clickedPiece;
       getHints(focus);
     }
   } else if (!positionInHints(mousePos)) {
     focus = null;
     clearHints();
-  } else if (focus != null && clickedPiece == null) {
+  } else if (focus != null && focus.turn==turn && clickedPiece == null) {
     movePiece(mousePos, focus);
     focus = null;
     clearHints();
-  } else {
+    turn = (turn+1)%2;
+  } else if (focus.turn==turn) {
     board.remove(clickedPiece);
     movePiece(mousePos, focus);
     focus = null;
     clearHints();
+    turn = (turn+1)%2;
   }
-    
 }
 boolean positionInHints(Position pos) {
   for (Position p : hints) {
