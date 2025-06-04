@@ -199,7 +199,6 @@ public void rangingCheck(Piece piece, ArrayList<Position> hints) {
     }
 }
 
->>>>>>> 495203bde033042f02f1b55a669c181d49567d34
 void showHints(){
    fill (200, 200, 200, 180);
    noStroke();
