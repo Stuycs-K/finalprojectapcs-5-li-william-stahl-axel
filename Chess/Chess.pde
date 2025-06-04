@@ -5,6 +5,9 @@ ArrayList<Piece> board = new ArrayList<Piece>(33);
 int turn = 0;//0-white   1-black
 ArrayList<Position> hints = new ArrayList<Position>();
 Piece focus;
+boolean whiteCheck = false;
+boolean blackCheck = false;
+
 void setup() {
   size(773,800);
   boardImage = loadImage("board.png");
@@ -257,5 +260,25 @@ boolean positionInHints(Position pos) {
       return true;
     }
   }
+  return false;
+}
+
+void checkState(){
+ 
+}
+
+boolean isCheck(Piece king){
+    for (Piece piece : board){
+       if (piece.turn != king.turn){
+          ArrayList<Position> temp = (ArrayList<Position>) hints.clone();
+          getHints(piece);
+          for (Position position : hints){
+             if (position.equals(king.loc)){
+                return true; 
+             }
+          }
+          hints = temp;
+       }
+    }
   return false;
 }
