@@ -246,12 +246,14 @@ void mouseClicked() {
     focus = null;
     clearHints();
     turn = (turn+1)%2;
+    checkState();
   } else if (focus.turn==turn) {
     board.remove(clickedPiece);
     movePiece(mousePos, focus);
     focus = null;
     clearHints();
     turn = (turn+1)%2;
+    checkState();
   }
 }
 boolean positionInHints(Position pos) {
@@ -264,16 +266,25 @@ boolean positionInHints(Position pos) {
 }
 
 void checkState(){
- 
+ for (Piece piece: board) {
+   if (piece.iconPath=="king.png") {
+     if (piece.turn==0) {
+       whiteCheck=isCheck(piece, piece.loc);
+     } else {
+       blackCheck=isCheck(piece, piece.loc);
+     }
+   }
+ }
+ System.out.println("\nwCheck: "+whiteCheck+"\nbCheck: "+blackCheck);
 }
 
-boolean isCheck(Piece king){
+boolean isCheck(Piece king, Position loc){
     for (Piece piece : board){
        if (piece.turn != king.turn){
           ArrayList<Position> temp = (ArrayList<Position>) hints.clone();
           getHints(piece);
           for (Position position : hints){
-             if (position.equals(king.loc)){
+             if (position.equals(loc)){
                 return true; 
              }
           }
