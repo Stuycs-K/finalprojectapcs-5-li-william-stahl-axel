@@ -269,27 +269,11 @@ void checkState(){
  for (Piece piece: board) {
    if (piece.iconPath=="king.png") {
      if (piece.turn==0) {
-       whiteCheck=isCheck(piece, piece.loc);
+       whiteCheck=piece.isCheck(piece, piece.loc);
      } else {
-       blackCheck=isCheck(piece, piece.loc);
+       blackCheck=piece.isCheck(piece, piece.loc);
      }
    }
  }
  System.out.println("\nwCheck: "+whiteCheck+"\nbCheck: "+blackCheck);
-}
-
-boolean isCheck(Piece king, Position loc){
-    for (Piece piece : board){
-       if (piece.turn != king.turn){
-          ArrayList<Position> temp = (ArrayList<Position>) hints.clone();
-          getHints(piece);
-          for (Position position : hints){
-             if (position.equals(loc)){
-                return true; 
-             }
-          }
-          hints = temp;
-       }
-    }
-  return false;
 }
