@@ -17,4 +17,13 @@ class King extends Piece{
     }
   return false;
 }
+
+public ArrayList<Position> getMoves() {
+  ArrayList<Position> moves = super.getMoves();
+  for (int i=0; i<moves.size(); i++) {
+    if (isCheck(this, moves.get(i))) {
+      moves.remove(i);
+    }
+  }
+  return moves;
 }
