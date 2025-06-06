@@ -53,6 +53,7 @@ Piece getPieceAt(Position position){
 void getHints(Piece piece){
     ArrayList<Position> moves = piece.getMoves();
     ArrayList<Position> captures = piece.getCaptures();
+    hints.clear();
     
     // no piece there
     for (Position position : moves){
@@ -70,6 +71,13 @@ void getHints(Piece piece){
     }
     if (piece.iconPath=="queen.png"||piece.iconPath=="bishop.png"||piece.iconPath=="rook.png")
     rangingCheck(piece, hints);
+    
+    for (int i = hints.size() - 1; i >= 0; i--) {
+        Position move = hints.get(i);
+        if (isCheckAfterMove(piece, move)) {
+            hints.remove(i);
+        }
+    }
 }
 
 public void rangingCheck(Piece piece, ArrayList<Position> hints) {
@@ -247,14 +255,14 @@ void mouseClicked() {
     focus = null;
     clearHints();
     turn = (turn+1)%2;
-    checkState(board);
+    //checkState(board);
   } else if (focus.turn==turn) {
     board.remove(clickedPiece);
     movePiece(mousePos, focus);
     focus = null;
     clearHints();
     turn = (turn+1)%2;
-    checkState(board);
+    //checkState(board);
   }
 }
 boolean positionInHints(Position pos) {
@@ -266,7 +274,7 @@ boolean positionInHints(Position pos) {
   return false;
 }
 
-void checkState(ArrayList<Piece> state){
+/*void checkState(ArrayList<Piece> state){
   ArrayList<Position> temp;
  for (Piece piece: state) {
    if (piece.iconPath=="king.png") {
@@ -280,22 +288,47 @@ void checkState(ArrayList<Piece> state){
    }
  }
  System.out.println("\nwCheck: "+whiteCheck+"\nbCheck: "+blackCheck);
-}
-boolean isCheck(Piece king, Position loc){
-  ArrayList<Position> temp;
-  System.out.println(hints);
-    for (Piece piece : board){
-       if (piece.turn != king.turn){
-          temp = (ArrayList<Position>) hints.clone();
-          System.out.println(piece.iconPath+"  "+temp);
-          getHints(piece);
-          for (Position position : hints){
-             if (position.equals(loc)){
-                return true; 
-             }
-          }
-          hints = temp;
-       }
+}*/
+boolean isCheck(int kingTurn, Position kingPos) {
+    for (Piece piece : board) {
+        if (piece.getTurn() != kingTurn) {
+            ArrayList<Position> attacks = piece.getCaptures();
+            for (Position attack : attacks) {
+                if (attack.equals(kingPos)) {
+                    return true;
+                }
+            }
+        }
     }
-  return false;
+    return false;
+}
+
+boolean isCheckAfterMove(Piece piece, Position move) {
+    Piece capturedPiece = getPieceAt(move);
+    Position originalPos = piece.getLoc();
+
+    piece.moveTo(move);
+    if (capturedPiece != null) {
+        board.remove(capturedPiece);
+    }
+
+    Piece king = null;
+    for (Piece p : board) {
+        if (p instanceof King && p.getTurn() == piece.getTurn()) {
+            king = p;
+            break;
+        }
+    }
+    
+    boolean inCheck = false;
+    if (king != null) {
+        inCheck = isCheck(king.getTurn(), king.getLoc());
+    }
+
+    piece.moveTo(originalPos);
+    if (capturedPiece != null) {
+        board.add(capturedPiece);
+    }
+    
+    return inCheck;
 }
