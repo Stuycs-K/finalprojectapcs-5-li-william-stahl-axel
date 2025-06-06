@@ -247,14 +247,14 @@ void mouseClicked() {
     focus = null;
     clearHints();
     turn = (turn+1)%2;
-    checkState();
+    checkState(board);
   } else if (focus.turn==turn) {
     board.remove(clickedPiece);
     movePiece(mousePos, focus);
     focus = null;
     clearHints();
     turn = (turn+1)%2;
-    checkState();
+    checkState(board);
   }
 }
 boolean positionInHints(Position pos) {
@@ -266,9 +266,9 @@ boolean positionInHints(Position pos) {
   return false;
 }
 
-void checkState(){
+void checkState(ArrayList<Piece> state){
   ArrayList<Position> temp;
- for (Piece piece: board) {
+ for (Piece piece: state) {
    if (piece.iconPath=="king.png") {
      temp = (ArrayList<Position>) hints.clone();
      if (piece.turn==0) {
