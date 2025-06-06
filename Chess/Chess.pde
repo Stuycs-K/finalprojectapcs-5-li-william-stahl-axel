@@ -267,22 +267,27 @@ boolean positionInHints(Position pos) {
 }
 
 void checkState(){
+  ArrayList<Position> temp;
  for (Piece piece: board) {
    if (piece.iconPath=="king.png") {
+     temp = (ArrayList<Position>) hints.clone();
      if (piece.turn==0) {
        whiteCheck=isCheck(piece, piece.loc);
      } else {
        blackCheck=isCheck(piece, piece.loc);
      }
+     hints=temp;
    }
  }
  System.out.println("\nwCheck: "+whiteCheck+"\nbCheck: "+blackCheck);
 }
 boolean isCheck(Piece king, Position loc){
+  ArrayList<Position> temp;
+  System.out.println(hints);
     for (Piece piece : board){
        if (piece.turn != king.turn){
-          ArrayList<Position> temp = (ArrayList<Position>) hints.clone();
-          System.out.println(temp);
+          temp = (ArrayList<Position>) hints.clone();
+          System.out.println(piece.iconPath+"  "+temp);
           getHints(piece);
           for (Position position : hints){
              if (position.equals(loc)){
