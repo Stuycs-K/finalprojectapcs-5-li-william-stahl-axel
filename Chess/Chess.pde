@@ -68,6 +68,7 @@ void getHints(Piece piece){
           hints.add(position); 
        }
     }
+    if (piece.iconPath=="queen.png"||piece.iconPath=="bishop.png"||piece.iconPath=="rook.png")
     rangingCheck(piece, hints);
 }
 
@@ -269,11 +270,27 @@ void checkState(){
  for (Piece piece: board) {
    if (piece.iconPath=="king.png") {
      if (piece.turn==0) {
-       whiteCheck=piece.isCheck(piece, piece.loc);
+       whiteCheck=isCheck(piece, piece.loc);
      } else {
-       blackCheck=piece.isCheck(piece, piece.loc);
+       blackCheck=isCheck(piece, piece.loc);
      }
    }
  }
  System.out.println("\nwCheck: "+whiteCheck+"\nbCheck: "+blackCheck);
+}
+boolean isCheck(Piece king, Position loc){
+    for (Piece piece : board){
+       if (piece.turn != king.turn){
+          ArrayList<Position> temp = (ArrayList<Position>) hints.clone();
+          System.out.println(temp);
+          getHints(piece);
+          for (Position position : hints){
+             if (position.equals(loc)){
+                return true; 
+             }
+          }
+          hints = temp;
+       }
+    }
+  return false;
 }
