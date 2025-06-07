@@ -36,6 +36,7 @@ class Position {
   }
 
   public boolean equals(Position pos) {
+    if (pos==null) return false;
     return this.col == pos.col && this.row == pos.row;
   }
 
