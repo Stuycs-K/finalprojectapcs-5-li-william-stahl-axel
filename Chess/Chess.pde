@@ -7,6 +7,7 @@ ArrayList<Position> hints = new ArrayList<Position>();
 Piece focus;
 boolean whiteCheck = false;
 boolean blackCheck = false;
+boolean gameOver=false;
 
 void setup() {
   size(773,800);
@@ -17,6 +18,9 @@ void setup() {
   hints.clear();
   focus=null;
   turn=0;
+  whiteCheck = false;
+  blackCheck = false;
+  gameOver=false;
   for (int _turn=0; _turn<=1; _turn++) {
     board.add(new Rook(_turn, new Position(1, 1+7*_turn)));
     board.add(new Knight(_turn, new Position(2, 1+7*_turn)));
@@ -36,11 +40,13 @@ void setup() {
 }
 
 void draw() {
-  image(boardImage, 0, 0);
-  for (Piece piece: board){
-    image(piece.getIcon(), piece.getX(), piece.getY()); 
+  if (!gameOver) {
+    image(boardImage, 0, 0);
+    for (Piece piece: board){
+      image(piece.getIcon(), piece.getX(), piece.getY()); 
+    }
+    showHints();
   }
-  showHints();
 }
 
 Piece getPieceAt(Position position){
@@ -56,13 +62,13 @@ void getHints(Piece piece){
   ArrayList<Position> moves = piece.getMoves();
   ArrayList<Position> captures = piece.getCaptures();
   hints.clear();
-  
+
   for (Position position : moves){
     if (getPieceAt(position) == null){
       hints.add(position);
     }
   }
-  
+
   for (Position position : captures){
     Piece enemy = getPieceAt(position);
     if (enemy != null && enemy.getTurn() != piece.getTurn()){
@@ -72,7 +78,7 @@ void getHints(Piece piece){
 
   if (piece.iconPath=="queen.png"||piece.iconPath=="bishop.png"||piece.iconPath=="rook.png")
     rangingCheck(piece, hints);
-  
+
   for (int i = hints.size() - 1; i >= 0; i--) {
     Position move = hints.get(i);
     if (isCheckAfterMove(piece, move)) {
@@ -228,15 +234,13 @@ void movePiece(Position position, Piece piece) {
 }
 
 void mouseClicked() {
-  if (whiteCheck&&blackCheck) {
+  if (gameOver) {
     setup();
-    whiteCheck=false;
-    blackCheck=false;
   }
   Position tmp = new Position(1, 1);
   Position mousePos = tmp.cordToPos(mouseX, mouseY);
   Piece clickedPiece = getPieceAt(mousePos);
- 
+
   if (hints.isEmpty()) {
     if (clickedPiece != null && clickedPiece.turn==turn) {
       focus = clickedPiece;
@@ -250,34 +254,32 @@ void mouseClicked() {
     focus = null;
     clearHints();
     turn = (turn+1)%2;
-  Position kingPos = null;
-  for (Piece p: board) {
-    if (p.turn==turn) kingPos=p.loc;
-  }
-  if (turn == 0 && kingPos!=null) {
-    whiteCheck = isCheck(turn, kingPos);
-    blackCheck=false;
-  } else if (kingPos!=null){
-    blackCheck = isCheck(turn, kingPos);
-    whiteCheck=false;
-  }
-  System.out.println("mate: "+isCheckMate());
+    Position kingPos = null;
+    for (Piece p: board) {
+      if (p.turn==turn) kingPos=p.loc;
+    }
+    if (turn == 0 && kingPos!=null) {
+      whiteCheck = isCheck(turn, kingPos);
+      blackCheck=false;
+    } else if (kingPos!=null){
+      blackCheck = isCheck(turn, kingPos);
+      whiteCheck=false;
+    }
   } else if (focus.turn==turn) {
     board.remove(clickedPiece);
     movePiece(mousePos, focus);
     focus = null;
     clearHints();
     turn = (turn+1)%2;
-  Position kingPos = null;
-  for (Piece p: board) {
-    if (p.turn==turn) kingPos=p.loc;
-  }
-  if (turn == 0 && kingPos!=null) {
-    whiteCheck = isCheck(turn, kingPos);
-  } else if (kingPos!=null){
-    blackCheck = isCheck(turn, kingPos);
-  }
-  System.out.println("mate: "+isCheckMate());
+    Position kingPos = null;
+    for (Piece p: board) {
+      if (p.turn==turn) kingPos=p.loc;
+    }
+    if (turn == 0 && kingPos!=null) {
+      whiteCheck = isCheck(turn, kingPos);
+    } else if (kingPos!=null){
+      blackCheck = isCheck(turn, kingPos);
+    }
   }
   return;
 }
@@ -295,7 +297,7 @@ boolean isCheck(int kingTurn, Position kingPos) {
   for (Piece piece : board) {
     if (piece.getTurn() != kingTurn) {
       ArrayList<Position> attacks = new ArrayList<Position>();
-      
+
       if (piece.iconPath.equals("rook.png") || piece.iconPath.equals("queen.png")) {
         int[][] rookDirs = {{0,1}, {1,0}, {0,-1}, {-1,0}};
         for (int[] dir : rookDirs) {
@@ -337,7 +339,7 @@ boolean isCheck(int kingTurn, Position kingPos) {
       if (attacks.isEmpty()) {
         attacks = piece.getCaptures();
       }
-      
+
       for (Position attack : attacks) {
         if (attack.equals(kingPos)) {
           return true;
@@ -353,7 +355,7 @@ boolean isCheckAfterMove(Piece piece, Position move) {
   Piece capturedPiece = getPieceAt(move);
   piece.loc = move;
   if (capturedPiece != null) board.remove(capturedPiece);
-  
+
   Piece king = null;
   for (Piece p : board) {
     if (p instanceof King && p.getTurn() == piece.getTurn()) {
@@ -370,7 +372,7 @@ boolean isCheckAfterMove(Piece piece, Position move) {
 
   piece.loc = originalPos;
   if (capturedPiece != null) board.add(capturedPiece);
-  
+
   return inCheck;
 }
 
@@ -385,9 +387,24 @@ boolean isCheckMate() {
         }
       }
     }
-  blackCheck=true;
-  whiteCheck=true;
-  return true;
+    gameOver=true;
+    String winnerMessage;
+    if (turn == 1) {
+      winnerMessage = "Black wins!";
+    } else {
+      winnerMessage = "White wins!";
+    }
+    fill(0, 0, 0, 180);
+    rect(0, 0, width, height);
+
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(48);
+    text(winnerMessage, width / 2, height / 2 - 30);
+
+    textSize(24);
+    text("Click to play again", width / 2, height / 2 + 30);
+    return true;
   }
   else return false;
 }
