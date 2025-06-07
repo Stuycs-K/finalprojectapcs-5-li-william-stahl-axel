@@ -17,4 +17,5 @@ class King extends Piece{
     }
   return false;
 }
+
 }
