@@ -241,13 +241,34 @@ void mouseClicked() {
     focus = null;
     clearHints();
     turn = (turn+1)%2;
+  Position kingPos = null;
+  for (Piece p: board) {
+    if (p.turn==turn) kingPos=p.loc;
+  }
+  if (turn == 0 && kingPos!=null) {
+    whiteCheck = isCheck(turn, kingPos);
+  } else if (kingPos!=null){
+    blackCheck = isCheck(turn, kingPos);
+  }
+  System.out.println("mate: "+isCheckMate());
   } else if (focus.turn==turn) {
     board.remove(clickedPiece);
     movePiece(mousePos, focus);
     focus = null;
     clearHints();
     turn = (turn+1)%2;
+  Position kingPos = null;
+  for (Piece p: board) {
+    if (p.turn==turn) kingPos=p.loc;
   }
+  if (turn == 0 && kingPos!=null) {
+    whiteCheck = isCheck(turn, kingPos);
+  } else if (kingPos!=null){
+    blackCheck = isCheck(turn, kingPos);
+  }
+  System.out.println("mate: "+isCheckMate());
+  }
+  return;
 }
 
 boolean positionInHints(Position pos) {
@@ -340,4 +361,20 @@ boolean isCheckAfterMove(Piece piece, Position move) {
   if (capturedPiece != null) board.add(capturedPiece);
   
   return inCheck;
+}
+
+boolean isCheckMate() {
+  if (whiteCheck||blackCheck) {
+    for (Piece piece: board) {
+      if (piece.getTurn()==turn) {
+        getHints(piece);
+        if (!hints.isEmpty()) {
+          hints.clear();
+          return false;
+        }
+      }
+    }
+  return true;
+  }
+  else return false;
 }
