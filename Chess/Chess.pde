@@ -13,6 +13,10 @@ void setup() {
   boardImage = loadImage("board.png");
   image(boardImage,0,0);
 
+  board.clear();
+  hints.clear();
+  focus=null;
+  turn=0;
   for (int _turn=0; _turn<=1; _turn++) {
     board.add(new Rook(_turn, new Position(1, 1+7*_turn)));
     board.add(new Knight(_turn, new Position(2, 1+7*_turn)));
@@ -224,6 +228,11 @@ void movePiece(Position position, Piece piece) {
 }
 
 void mouseClicked() {
+  if (whiteCheck&&blackCheck) {
+    setup();
+    whiteCheck=false;
+    blackCheck=false;
+  }
   Position tmp = new Position(1, 1);
   Position mousePos = tmp.cordToPos(mouseX, mouseY);
   Piece clickedPiece = getPieceAt(mousePos);
@@ -247,8 +256,10 @@ void mouseClicked() {
   }
   if (turn == 0 && kingPos!=null) {
     whiteCheck = isCheck(turn, kingPos);
+    blackCheck=false;
   } else if (kingPos!=null){
     blackCheck = isCheck(turn, kingPos);
+    whiteCheck=false;
   }
   System.out.println("mate: "+isCheckMate());
   } else if (focus.turn==turn) {
@@ -374,6 +385,8 @@ boolean isCheckMate() {
         }
       }
     }
+  blackCheck=true;
+  whiteCheck=true;
   return true;
   }
   else return false;
