@@ -265,6 +265,7 @@ void mouseClicked() {
       blackCheck = isCheck(turn, kingPos);
       whiteCheck=false;
     }
+    isCheckMate();
   } else if (focus.turn==turn) {
     board.remove(clickedPiece);
     movePiece(mousePos, focus);
@@ -280,6 +281,7 @@ void mouseClicked() {
     } else if (kingPos!=null){
       blackCheck = isCheck(turn, kingPos);
     }
+    isCheckMate();
   }
   return;
 }
@@ -376,14 +378,14 @@ boolean isCheckAfterMove(Piece piece, Position move) {
   return inCheck;
 }
 
-boolean isCheckMate() {
+void isCheckMate() {
   if (whiteCheck||blackCheck) {
     for (Piece piece: board) {
       if (piece.getTurn()==turn) {
         getHints(piece);
         if (!hints.isEmpty()) {
           hints.clear();
-          return false;
+          return;
         }
       }
     }
@@ -404,7 +406,5 @@ boolean isCheckMate() {
 
     textSize(24);
     text("Click to play again", width / 2, height / 2 + 30);
-    return true;
   }
-  else return false;
 }
