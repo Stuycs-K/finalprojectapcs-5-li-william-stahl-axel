@@ -383,7 +383,7 @@ boolean isCheckAfterMove(Piece piece, Position move) {
 }
 
 void isCheckMate() {
-  if (whiteCheck||blackCheck) {
+  //if (whiteCheck||blackCheck) {
     for (Piece piece: board) {
       if (piece.getTurn()==turn) {
         getHints(piece);
@@ -395,7 +395,9 @@ void isCheckMate() {
     }
     gameOver=true;
     String winnerMessage;
-    if (turn == 1) {
+    if (!whiteCheck&&!blackCheck) {
+      winnerMessage = "Draw by stalemate";
+    }else if (turn == 1) {
       winnerMessage = "Black wins!";
     } else {
       winnerMessage = "White wins!";
@@ -410,7 +412,7 @@ void isCheckMate() {
 
     textSize(24);
     text("Click to play again", width / 2, height / 2 + 30);
-  }
+  
 }
 
 ArrayList<Piece> parse(String fileName) {
