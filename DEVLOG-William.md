@@ -20,5 +20,5 @@ Worked on draw(), getHints(Piece), showHints(), and clearHints(). 2 more parts l
 ### 2025-06-03 - Directions Checks
 Worked on rangingCheck, wrote checks for each of the 8 directions. Pieces now are prevented from traveling through other pieces.
 
-### 2025-06-08 - Castling
-Worked on castling, edited movePiece.
+### 2025-06-08 - Castling, En Passant
+Worked on castling and En Passant mechanics
