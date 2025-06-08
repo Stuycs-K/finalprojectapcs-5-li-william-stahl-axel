@@ -3,6 +3,20 @@
 This document must be updated daily every time you finish a work session.
 
 ## Axel Stahl
+### 2025-6-7 - rangingCheck
+Use isCheck to write isCheckMate(). isCheckMate accounts for stalemate.
+Write gameOver banner, click to restart.
+Write parse(), so that we can give positions to the game.
+
+### 2025-6-6 - rangingCheck
+write isCheckAfterMove to simulate moves before showHints().
+
+### 2025-6-5 - rangingCheck
+Write isCheck to find if player can move.
+
+### 2025-6-4 - rangingCheck
+Included checks to include turns for white/black players.
+
 ### 2025-6-3 - rangingCheck
 RangingCheck upwards and downwards and check for last row bugs.
 
