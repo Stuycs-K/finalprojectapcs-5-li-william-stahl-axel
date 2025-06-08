@@ -5,18 +5,29 @@ class Pawn extends Piece{
     super(turn, loc, "pawn.png", new int[2][10]);//moves will be different
   }
   public ArrayList<Position> getMoves() {
-    int[][] relative = {{0,-1}};
-    if (getHasMoved()) {
-      if (getTurn() == 0) {
-        relative = new int[][]{{0,1}};
-      }
-    } else {
-      relative = new int[][]{{0,-1},{0,-2}};
-      if (getTurn() == 0) {
-        relative = new int[][]{{0,1},{0,2}};
-      }
+    ArrayList<Position> moves = new ArrayList<Position>();
+    
+    int direction;
+    if (turn == 0){
+       direction = 1;
     }
-    return getMovesH(relative);
+    else{
+       direction = -1; 
+    }
+    
+    Position one = new Position(getLoc().getCol(), getLoc().getRow() + direction);
+    if (one.isPossible(one.getCol(), one.getRow()) && getPieceAt(one) == null){
+       moves.add(one);   // regular movement
+       
+       if (!getHasMoved()){
+          Position two = new Position(getLoc().getCol(), getLoc().getRow() + 2*direction);
+          if (two.isPossible(two.getCol(), two.getRow()) && getPieceAt(two) == null){
+             moves.add(two); // starting position so it can move two squares as well 
+          }
+       }
+    }
+    
+    return moves;
   }
   public ArrayList<Position> getCaptures() {
     int[][] relative = {{-1,-1},{1,-1}};
