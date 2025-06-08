@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 PImage boardImage, tmpPiece;
 ArrayList<Piece> board = new ArrayList<Piece>(33);
@@ -21,18 +24,7 @@ void setup() {
   whiteCheck = false;
   blackCheck = false;
   gameOver=false;
-  for (int _turn=0; _turn<=1; _turn++) {
-    board.add(new Rook(_turn, new Position(1, 1+7*_turn)));
-    board.add(new Knight(_turn, new Position(2, 1+7*_turn)));
-    board.add(new Bishop(_turn, new Position(3,1+7*_turn)));
-    board.add(new Queen(_turn, new Position(4, 1+7*_turn)));
-    board.add(new King(_turn, new Position(5, 1+7*_turn)));
-    board.add(new Bishop(_turn, new Position(6, 1+7*_turn)));
-    board.add(new Knight(_turn, new Position(7,1+7*_turn)));
-    board.add(new Rook(_turn, new Position(8, 1+7*_turn)));
-    for (int i = 1; i <= 8; i++) 
-      board.add(new Pawn(_turn, new Position(i, 2+5*_turn)));
-  }
+  board=parse("default.txt");
 
   for (Piece piece: board) {
     image(piece.getIcon(),piece.getX(),piece.getY());
@@ -379,7 +371,7 @@ boolean isCheckAfterMove(Piece piece, Position move) {
 }
 
 void isCheckMate() {
-  if (whiteCheck||blackCheck) {
+  //if (whiteCheck||blackCheck) {
     for (Piece piece: board) {
       if (piece.getTurn()==turn) {
         getHints(piece);
@@ -391,7 +383,9 @@ void isCheckMate() {
     }
     gameOver=true;
     String winnerMessage;
-    if (turn == 1) {
+    if (!whiteCheck&&!blackCheck) {
+      winnerMessage = "Draw by stalemate";
+    }else if (turn == 1) {
       winnerMessage = "Black wins!";
     } else {
       winnerMessage = "White wins!";
@@ -406,5 +400,29 @@ void isCheckMate() {
 
     textSize(24);
     text("Click to play again", width / 2, height / 2 + 30);
+  
+}
+
+ArrayList<Piece> parse(String fileName) {
+  ArrayList<Piece> newBoard = new ArrayList<Piece>();
+  String[] lines = loadStrings(fileName);
+
+  for (String line : lines) {
+    String[] parts = split(line, ' ');
+    if (parts.length != 4) continue;
+
+    String pieceType = parts[0].toLowerCase();
+    int turn = int(parts[1]);
+    int col = int(parts[2]);
+    int row = int(parts[3]);
+    Position pos = new Position(col, row);
+
+    if (pieceType.equals("pawn")) newBoard.add(new Pawn(turn, pos));
+    else if (pieceType.equals("rook")) newBoard.add(new Rook(turn, pos));
+    else if (pieceType.equals("knight")) newBoard.add(new Knight(turn, pos));
+    else if (pieceType.equals("bishop")) newBoard.add(new Bishop(turn, pos));
+    else if (pieceType.equals("queen")) newBoard.add(new Queen(turn, pos));
+    else if (pieceType.equals("king")) newBoard.add(new King(turn, pos));
   }
+  return newBoard;
 }
