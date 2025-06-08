@@ -12,6 +12,7 @@ Piece focus;
 boolean whiteCheck = false;
 boolean blackCheck = false;
 boolean gameOver=false;
+Position enPassantSpot = null; //where en passant happens
 
 void setup() {
   size(773,800);
@@ -67,6 +68,24 @@ void getHints(Piece piece){
     if (enemy != null && enemy.getTurn() != piece.getTurn()){
       hints.add(position); 
     }
+  }
+  
+  if (piece.iconPath == "pawn.png" && enPassantSpot != null){
+     int pRow = piece.getLoc().getRow();
+     int pCol = piece.getLoc().getCol();
+     int direction;
+     
+     if (piece.getTurn() == 0){
+        direction = 1; 
+     }
+     else{
+        direction = -1; 
+     }
+     
+     if (enPassantSpot.getRow() == pRow + direction &&
+         Math.abs(enPassantSpot.getCol() - pCol) == 1){
+            hints.add(new Position(enPassantSpot.getCol(), enPassantSpot.getRow())); 
+         }
   }
 
   if (piece.iconPath=="queen.png"||piece.iconPath=="bishop.png"||piece.iconPath=="rook.png")
@@ -267,7 +286,41 @@ void movePiece(Position position, Piece piece) {
     }
   }
   
+  // en passant case
+  if (piece.iconPath == "pawn.png" && enPassantSpot != null){
+     if (position.equals(enPassantSpot)){
+        int capturedRow;
+        if (piece.getTurn() == 0){
+           capturedRow = position.getRow() - 1; 
+        }
+        else{
+           capturedRow = position.getRow() + 1; 
+        }
+        Piece capturedPawn = getPieceAt(new Position(position.getCol(), capturedRow));
+        if (capturedPawn != null && capturedPawn.iconPath == "pawn.png"){
+           board.remove(capturedPawn); 
+        }
+     }
+  }
+  
+  int oldRow = piece.getLoc().getRow();
   piece.moveTo(position);
+  
+  enPassantSpot = null;
+  if (piece.iconPath == "pawn.png"){
+     int rowDiff = Math.abs(position.getRow() - oldRow); 
+     if (rowDiff == 2){
+        int direction;
+        if (piece.getTurn() == 0){
+           direction = 1; 
+        }
+        else{
+           direction = -1; 
+        }
+        enPassantSpot = new Position(position.getCol(), position.getRow() - direction);
+     }
+  }
+  
   clearHints();
   draw();
 }
