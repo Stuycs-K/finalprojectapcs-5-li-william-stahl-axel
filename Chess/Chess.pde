@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
 PImage boardImage, tmpPiece;
 ArrayList<Piece> board = new ArrayList<Piece>(33);
 int turn = 0;
@@ -371,37 +372,38 @@ boolean isCheckAfterMove(Piece piece, Position move) {
 }
 
 void isCheckMate() {
-  //if (whiteCheck||blackCheck) {
-    for (Piece piece: board) {
-      if (piece.getTurn()==turn) {
-        getHints(piece);
-        if (!hints.isEmpty()) {
-          hints.clear();
-          return;
-        }
+  for (int i = 0; i < board.size(); i++) {
+    Piece piece = board.get(i);
+    if (piece.getTurn() == turn) {
+      getHints(piece);
+      if (!hints.isEmpty()) {
+        hints.clear();
+        return;
       }
     }
-    gameOver=true;
-    String winnerMessage;
-    if (!whiteCheck&&!blackCheck) {
-      winnerMessage = "Draw by stalemate";
-    }else if (turn == 1) {
-      winnerMessage = "Black wins!";
-    } else {
-      winnerMessage = "White wins!";
-    }
-    fill(0, 0, 0, 180);
-    rect(0, 0, width, height);
+  }
+  gameOver = true;
+  String winnerMessage;
+  if (!whiteCheck && !blackCheck) {
+    winnerMessage = "Draw by stalemate";
+  } else if (turn == 1) {
+    winnerMessage = "Black wins!";
+  } else {
+    winnerMessage = "White wins!";
+  }
 
-    fill(255);
-    textAlign(CENTER, CENTER);
-    textSize(48);
-    text(winnerMessage, width / 2, height / 2 - 30);
+  fill(0, 0, 0, 180);
+  rect(0, 0, width, height);
 
-    textSize(24);
-    text("Click to play again", width / 2, height / 2 + 30);
-  
+  fill(255);
+  textAlign(CENTER, CENTER);
+  textSize(48);
+  text(winnerMessage, width / 2, height / 2 - 30);
+
+  textSize(24);
+  text("Click to play again", width / 2, height / 2 + 30);
 }
+
 
 ArrayList<Piece> parse(String fileName) {
   ArrayList<Piece> newBoard = new ArrayList<Piece>();
