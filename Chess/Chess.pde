@@ -72,6 +72,34 @@ void getHints(Piece piece){
   if (piece.iconPath=="queen.png"||piece.iconPath=="bishop.png"||piece.iconPath=="rook.png")
     rangingCheck(piece, hints);
 
+// castling
+  if (piece.iconPath == "king.png" && !piece.getHasMoved()){
+     int row = piece.getLoc().getRow();
+     
+     // kingside (right for white)
+     Piece ksRook = getPieceAt(new Position(8, row));
+     if (ksRook != null && ksRook.iconPath == "rook.png" && !ksRook.getHasMoved()){
+        // between pieces
+        if (getPieceAt(new Position(6, row)) == null &&
+            getPieceAt(new Position(7, row)) == null &&
+            !isCheck(piece.getTurn(), piece.getLoc())){
+              hints.add(new Position(7, row)); // castle possible
+            }
+     }
+     
+     // queenside (left for white)
+     Piece qsRook = getPieceAt(new Position(1, row));
+      if (qsRook != null && qsRook.iconPath == "rook.png" && !qsRook.getHasMoved()){
+        // between pieces
+        if (getPieceAt(new Position(2, row)) == null &&
+            getPieceAt(new Position(3, row)) == null &&
+            getPieceAt(new Position(4, row)) == null &&
+            !isCheck(piece.getTurn(), piece.getLoc())){
+              hints.add(new Position(3, row)); // castle possible
+            }
+     }
+  }
+
   for (int i = hints.size() - 1; i >= 0; i--) {
     Position move = hints.get(i);
     if (isCheckAfterMove(piece, move)) {
@@ -221,6 +249,24 @@ void movePiece(Position position, Piece piece) {
   if (pieceAtPosition != null) {
     board.remove(pieceAtPosition);
   } 
+  
+  // castling moves two
+  if (piece.iconPath == "king.png" && Math.abs(position.getCol() - piece.getLoc().getCol()) == 2){
+    if (position.getCol() == 7){ // ks
+        Piece rook = getPieceAt(new Position(8, position.getRow()));
+        if (rook != null){
+           rook.moveTo(new Position(6, position.getRow())); 
+        }
+    }
+    
+    if (position.getCol() == 3){ // qs
+        Piece rook = getPieceAt(new Position(1, position.getRow()));
+        if (rook != null){
+           rook.moveTo(new Position(4, position.getRow())); 
+        }
+    }
+  }
+  
   piece.moveTo(position);
   clearHints();
   draw();
@@ -387,9 +433,9 @@ void isCheckMate() {
   if (!whiteCheck && !blackCheck) {
     winnerMessage = "Draw by stalemate";
   } else if (turn == 1) {
-    winnerMessage = "Black wins!";
-  } else {
     winnerMessage = "White wins!";
+  } else {
+    winnerMessage = "Black wins!";
   }
 
   fill(0, 0, 0, 180);
