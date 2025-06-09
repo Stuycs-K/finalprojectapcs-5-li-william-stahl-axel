@@ -29,7 +29,7 @@ void setup() {
   whiteCheck = false;
   blackCheck = false;
   gameOver=false;
-  board=parse("default.txt");
+  board=parse("board.txt");
 
   for (Piece piece: board) {
     image(piece.getIcon(),piece.getX(),piece.getY());
