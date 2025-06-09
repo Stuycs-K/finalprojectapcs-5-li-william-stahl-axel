@@ -3,6 +3,9 @@
 This document must be updated daily every time you finish a work session.
 
 ## Axel Stahl
+### 2025-6-8 - promotion
+Wrote promotion. when a pawn reaches 8/1 rank, the dialog pops up to choose the piece.
+
 ### 2025-6-7 - rangingCheck
 Use isCheck to write isCheckMate(). isCheckMate accounts for stalemate.
 Write gameOver banner, click to restart.
