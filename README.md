@@ -18,3 +18,6 @@ The board's syntax is as follows:
  - `piece_name` is `pawn`, `rook`, `knight`, `bishop`, `king`, `queen`
  - `turn_number`: `0`: white, `1`: black
  - `x_cord`/`y_cord` range from `1`-`8`. `1` `1` starts on the bottom left and increases.
+
+# Demonstration Video
+[Demo Video](https://www.youtube.com/watch?v=XTO4jR8cnwM)
