@@ -13,6 +13,9 @@ boolean whiteCheck = false;
 boolean blackCheck = false;
 boolean gameOver=false;
 Position enPassantSpot = null; //where en passant happens
+boolean isPromoting = false;
+Piece promotingPawn = null;
+
 
 void setup() {
   size(773,800);
@@ -40,6 +43,9 @@ void draw() {
       image(piece.getIcon(), piece.getX(), piece.getY()); 
     }
     showHints();
+    if (isPromoting) {
+      showPromotionMenu();
+    }
   }
 }
 
@@ -329,6 +335,12 @@ void mouseClicked() {
   if (gameOver) {
     setup();
   }
+
+  if (isPromoting) {
+    handlePromotionSelection();
+    return;
+  }
+  
   Position tmp = new Position(1, 1);
   Position mousePos = tmp.cordToPos(mouseX, mouseY);
   Piece clickedPiece = getPieceAt(mousePos);
@@ -375,6 +387,20 @@ void mouseClicked() {
     }
     isCheckMate();
   }
+
+  if (focus == null && hints.isEmpty()) {
+    for (Piece p : board) {
+      if (p.iconPath.equals("pawn.png")) {
+        int row = p.getLoc().getRow();
+        if ((p.getTurn() == 0 && row == 8) || (p.getTurn() == 1 && row == 1)) {
+          isPromoting = true;
+          promotingPawn = p;
+          return;
+        }
+      }
+    }
+  }
+    
   return;
 }
 
@@ -526,4 +552,94 @@ ArrayList<Piece> parse(String fileName) {
     else if (pieceType.equals("king")) newBoard.add(new King(turn, pos));
   }
   return newBoard;
+}
+
+void showPromotionMenu() {
+  String colorPrefix = "";
+  if (promotingPawn.getTurn() == 1) {
+    colorPrefix = "black-";
+  }
+  String[] options = {"queen", "rook", "bishop", "knight"};
+  
+  PImage[] images = new PImage[4];
+  images[0] = loadImage(colorPrefix + "queen.png");
+  images[1] = loadImage(colorPrefix + "rook.png");
+  images[2] = loadImage(colorPrefix + "bishop.png");
+  images[3] = loadImage(colorPrefix + "knight.png");
+  
+  int optionWidth = 80;
+  int optionHeight = 90;
+  int menuWidth = optionWidth * 4 + 20;
+  int menuHeight = 130;
+  int menuX = width/2 - menuWidth/2;
+  int menuY = height/2 - menuHeight/2;
+  
+  fill(0, 0, 0, 150);
+  rect(0, 0, width, height);
+  
+  fill(240);
+  rect(menuX, menuY, menuWidth, menuHeight, 10);
+  
+  fill(0);
+  textAlign(CENTER, CENTER);
+  textSize(18);
+  text("Promote pawn to:", width/2, menuY + 20);
+  
+  for (int i = 0; i < 4; i++) {
+    int x = menuX + 10 + i * (optionWidth + 5);
+    int y = menuY + 45;
+    
+    boolean mouseOver = mouseX > x && mouseX < x + optionWidth &&
+                       mouseY > y && mouseY < y + optionHeight;
+    if (mouseOver) {
+      fill(200, 230, 255);
+    } else {
+      fill(255);
+    }
+    rect(x, y, optionWidth, optionHeight, 5);
+    
+    image(images[i], x + optionWidth/2 - 30, y + 5, 60, 60);
+    
+    fill(0);
+    textSize(12);
+    text(options[i], x + optionWidth/2, y + 75);
+  }
+}
+
+void handlePromotionSelection() {
+  String[] options = {"queen", "rook", "bishop", "knight"};
+  int optionWidth = 80;
+  int menuX = width/2 - (optionWidth * 4 + 20)/2;
+  int menuY = height/2 - 50;
+  
+  for (int i = 0; i < 4; i++) {
+    int x = menuX + 10 + i * (optionWidth + 5);
+    int y = menuY + 40;
+    
+    if (mouseX > x && mouseX < x + optionWidth &&
+        mouseY > y && mouseY < y + optionWidth - 20) {
+      Position pos = promotingPawn.getLoc();
+      int turn = promotingPawn.getTurn();
+      Piece newPiece;
+      
+      if (options[i].equals("queen")) {
+        newPiece = new Queen(turn, pos);
+      } else if (options[i].equals("rook")) {
+        newPiece = new Rook(turn, pos);
+      } else if (options[i].equals("bishop")) {
+        newPiece = new Bishop(turn, pos);
+      } else if (options[i].equals("knight")) {
+        newPiece = new Knight(turn, pos);
+      } else {
+        newPiece = new Queen(turn, pos);
+      }
+      
+      board.remove(promotingPawn);
+      board.add(newPiece);
+      isPromoting = false;
+      promotingPawn = null;
+      turn = (turn + 1) % 2;
+      break;
+    }
+  }
 }
