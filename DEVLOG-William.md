@@ -22,3 +22,5 @@ Worked on rangingCheck, wrote checks for each of the 8 directions. Pieces now ar
 
 ### 2025-06-08 - Castling, En Passant
 Worked on castling and En Passant mechanics. Also found and fixed error where pawns could go through another piece at the start.
+
+I believe this document accurately reflects the contributions of my teamate.
