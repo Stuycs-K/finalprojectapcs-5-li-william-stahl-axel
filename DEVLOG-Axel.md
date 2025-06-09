@@ -45,3 +45,4 @@ Fixed cordToPos to work.
 ### 2025-5-27 - Position & timeline
 Wrote cordToPos first implementation. Wrote the timeline for this project
 
+I believe this document accurately reflects the contributions of my teamate.
